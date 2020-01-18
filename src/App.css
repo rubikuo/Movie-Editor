@@ -1,38 +1,151 @@
+/* *{
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0;
+} */
+
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+input{
+  border: 1px solid grey;
+  margin: 2px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+form{
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+
+}
+
+#addBtn{
+  width: 20px;
+}
+
+button.deleteBtn{
+  border: none;
+
+
+}
+
+/*Movie Table Component */
+
+.moviesDiv {
+  margin: 0 auto;
+  width: 80%;
+}
+
+/* .movieIcon{
+  font-size: large;
+} */
+
+.tableCtn{
+  border: 1px solid rgb(181, 178, 178);
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+  max-width: calc(100% - 2em);
+  margin: 1em auto;
+  overflow: hidden;
+  width: 800px;
+}
+
+.tableHeader{
+  background-color: rgb(3, 35, 68);
+  color: white;
+  font-size: 1.5em;
+  padding: 1rem;
+  text-align: center;
+
+}
+
+
+table{
+  width: 100%;
+  margin: 0 auto;
+
+}
+
+th {
+  background-color: rgb(28, 71, 113);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+tbody{
+  background-color: rgb(235, 235, 235);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table thead tr th{
+  padding: 15px;
+}
+
+table thead tr th:nth-child(1){
+  width: 15%;
+}
+
+/* movieImg td */
+table tbody tr td:nth-child(1){
+  padding: 15px 10px;
+}
+
+.movieImg{
+  width: 70%;
+}
+
+/* table thead tr th:nth-child(2), table thead tr th:nth-child(3){
+  width: 20%;
+} */
+
+table thead tr th:nth-child(4){
+  width: 20%;
+}
+
+
+table thead tr th:nth-child(5){
+  width: 15%;
+}
+
+table tbody tr td:nth-child(5){
+  padding: 15px 10px;
+}
+
+.deleteBtn{
+  background-color: transparent;
+}
+
+/* stars Rating style*/
+
+.stars-outer{
+  position: relative;
+  display: inline-block;
+}
+
+.stars-inner{
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0; /* the starpercentage will determine this later*/
+}
+
+.stars-outer::before{
+  content: "\f004 \f004 \f004 \f004 \f004";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #ccc;
+}
+
+.stars-inner::before{
+  content: "\f004 \f004 \f004 \f004 \f004";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: rgb(245, 8, 8);
 }
