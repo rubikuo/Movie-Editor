@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import MovieTable from "./component/MovieTable";
+import Home from "./component/Home";
 import AddMovie from "./component/AddMovie";
 import EditMovie from "./component/EditMovie";
 import MovieInfo from "./component/MovieInfo";
@@ -17,7 +17,7 @@ function App() {
       <Router>
       <Navigation/>
       <Switch>
-        <Route exact path="/" component={MovieTable}></Route>
+        <Route exact path="/" component={Home}></Route>
         <Route path="/add-movies" component={AddMovie}></Route>
         <Route path="/edit-movies/:id" component={EditMovie}></Route>
         <Route path="/movie-info/:id" component={MovieInfo}></Route>

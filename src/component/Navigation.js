@@ -5,8 +5,8 @@ class Navigation extends Component {
   render() {
     return (
       <nav>
-        <Link to="/">Movies</Link> {/* main page*/}
-        <Link to="/add-movies">Add Movies</Link>  {/* add page*/}
+        <Link to="/"  className="links">Home</Link>{/* main page*/}
+        <Link to="/add-movies" className="links">Add Movie</Link> {/* add page*/}
       </nav>
     );
   }
