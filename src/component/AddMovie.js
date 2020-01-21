@@ -66,25 +66,25 @@ class AddMovie extends Component {
     let ratingNum;
     let warningDescription;
 
-    let title = false;
-    let director = false;
-    let rating = false;
-    let description = false;
+    let titleValidation = false;
+    let directorValidation = false;
+    let ratingValidation = false;
+    let descriptionValidation = false;
 
     if (this.state.title.length >= 1 && this.state.title.length <= 40) {
       warningTitle = { color: "blue" };
-      title = true;
+      titleValidation = true;
     } else {
       warningTitle = { color: "red" };
-      title = false;
+      titleValidation = false;
     }
 
     if (this.state.director.length >= 1 && this.state.director.length <= 40) {
       warningDirector = { color: "blue" };
-      director = true;
+      directorValidation = true;
     } else {
       warningDirector = { color: "red" };
-      director = false;
+      directorValidation = false;
     }
 
     if (this.state.rating === "") {
@@ -98,13 +98,13 @@ class AddMovie extends Component {
       parseFloat(this.state.rating) <= 5.0
     ) {
       warningRating = { color: "blue" };
-      rating = true;
+      ratingValidation = true;
     } else if (this.state.rating === undefined) {
       warningRating = { color: "red" };
-      rating = false;
+      ratingValidation = false;
     } else {
       warningRating = { color: "red" };
-      rating = false;
+      ratingValidation = false;
     }
 
     if (
@@ -112,15 +112,15 @@ class AddMovie extends Component {
       this.state.description.length <= 300
     ) {
       warningDescription = { color: "blue" };
-      description = true;
+      descriptionValidation = true;
     } else {
       warningDescription = { color: "red" };
-      description = false;
+      descriptionValidation = false;
     }
 
     // to check if all the condition is true
     let warningMsg;
-    if (title && director && rating && description) {
+    if (titleValidation && directorValidation && ratingValidation && descriptionValidation) {
       warningMsg = null;
     } else if (this.state.error) {
       warningMsg = <p>"Oooppps Something is wrong"</p>;

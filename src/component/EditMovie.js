@@ -35,24 +35,23 @@ class EditMovie extends Component {
           rating: response.data.rating,
           description: response.data.description
         });
-      }).catch((error) => {
-        this.setState({error: true})
+      })
+      .catch(error => {
+        this.setState({ error: true });
       });
   };
-  onChangeTitle = e => {
-    this.setState({ title: e.target.value });
-  };
 
-  onChangeDirector = e => {
-    this.setState({ director: e.target.value });
-  };
-
-  onChangeRating = e => {
-    this.setState({ rating: e.target.value });
-  };
-
-  onChangeDescription = e => {
-    this.setState({ description: e.target.value });
+  handleOnchange = e => {
+    if (e.target.id === "rating") {
+      this.setState({
+        // eslint-disable-next-line no-useless-escape
+        rating: e.target.value.replace(/^(\-)*(\d+)\.(\d).*$/, "$1$2.$3")
+      });
+    } else {
+      this.setState({
+        [e.target.id]: e.target.value
+      });
+    }
   };
 
   onSubmit = e => {
@@ -63,11 +62,14 @@ class EditMovie extends Component {
       description: this.state.description
     };
     e.preventDefault();
-    axios.put(this.infoUrl, movie).then(() => {
-      this.props.history.goBack(); //because edit want to go back to the
-    }).catch((error) => {
-      this.setState({error: true})
-    });
+    axios
+      .put(this.infoUrl, movie)
+      .then(() => {
+        this.props.history.goBack(); //because edit want to go back to the
+      })
+      .catch(error => {
+        this.setState({ error: true });
+      });
   };
 
   componentWillUnmount() {
@@ -81,25 +83,25 @@ class EditMovie extends Component {
     let ratingNum;
     let warningDescription;
 
-    let title = false;
-    let director = false;
-    let rating = false;
-    let description = false;
+    let titleValidation = false;
+    let directorValidation = false;
+    let ratingValidation = false;
+    let descriptionValidation = false;
 
     if (this.state.title.length >= 1 && this.state.title.length <= 40) {
       warningTitle = { color: "blue" };
-      title = true;
+      titleValidation = true;
     } else {
       warningTitle = { color: "red" };
-      title = false;
+      titleValidation = false;
     }
 
     if (this.state.director.length >= 1 && this.state.director.length <= 40) {
       warningDirector = { color: "blue" };
-      director = true;
+      directorValidation = true;
     } else {
       warningDirector = { color: "red" };
-      director = false;
+      directorValidation = false;
     }
 
     if (this.state.rating === "") {
@@ -113,13 +115,14 @@ class EditMovie extends Component {
       parseFloat(this.state.rating) <= 5.0
     ) {
       warningRating = { color: "blue" };
-      rating = true;
+      ratingValidation = true;
+      // to check if the input is empty space(undefined)
     } else if (this.state.rating === undefined) {
       warningRating = { color: "red" };
-      rating = false;
+      ratingValidation = false;
     } else {
       warningRating = { color: "red" };
-      rating = false;
+      ratingValidation = false;
     }
 
     if (
@@ -127,15 +130,15 @@ class EditMovie extends Component {
       this.state.description.length <= 300
     ) {
       warningDescription = { color: "blue" };
-      description = true;
+      descriptionValidation = true;
     } else {
       warningDescription = { color: "red" };
-      description = false;
+      descriptionValidation = false;
     }
-     
-    // to check if all the condition is true
+
+    // to check if all the input condition is true
     let warningMsg;
-    if (title && director && rating && description) {
+    if (titleValidation && directorValidation && ratingValidation && descriptionValidation) {
       warningMsg = null;
     } else if (this.state.error) {
       warningMsg = <p>"Oooppps Something is wrong"</p>;
@@ -153,57 +156,62 @@ class EditMovie extends Component {
           <title>Edit Movies</title>
         </Helmet>
 
-        <form className="editForm" onSubmit={this.onSubmit}>
+        <form className="addForm" onSubmit={this.onSubmit}>
           <div className="formWrapDiv">
-            <label>
+            <label htmlFor="name">
+              {" "}
+              {/*look for input field with id of Name and associate the label with input field */}
               Title
               <input
                 type="text"
                 value={this.state.title}
+                id="title"
                 placeholder="title"
-                onChange={this.onChangeTitle}
+                onChange={this.handleOnchange}
               />
               <span className="warning" style={warningTitle}>
                 {this.state.title.length}/40
               </span>
             </label>
-            <label>
+            <label htmlFor="name">
               Director
               <input
                 type="text"
                 value={this.state.director}
+                id="director"
                 placeholder="director"
-                onChange={this.onChangeDirector}
+                onChange={this.handleOnchange}
               />
               <span className="warning" style={warningDirector}>
                 {this.state.director.length}/40
               </span>
             </label>
-            <label>
+            <label htmlFor="name">
               Rating
               <input
                 type="number"
-                id="rating-control"
+                value={this.state.rating}
+                id="rating"
                 className="form-control"
                 step={0.1}
                 min={1}
                 max={5}
-                value={this.state.rating}
                 placeholder="0.0 - 5.0"
-                onChange={this.onChangeRating}
+                onChange={this.handleOnchange}
               />
               <span className="warning" style={warningRating}>
                 {ratingNum}/5.0
               </span>
             </label>
-            <label>
+            <label htmlFor="name">
               Description
               <textarea
-                className="descriptionCtn"
                 type="text"
-                placeholder="description"
+                id="description"
+                className="descriptionCtn"
                 value={this.state.description}
-                onChange={this.onChangeDescription}
+                placeholder="description"
+                onChange={this.handleOnchange}
               ></textarea>
               <span className="warning" style={warningDescription}>
                 {this.state.description.length}/300
