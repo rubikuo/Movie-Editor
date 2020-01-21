@@ -9,66 +9,72 @@ import MaterialIcon from "material-icons-react";
 class MovieInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = { moive: [], id: null, redirect: false };
-
-    this.deleteMovie = this.deleteMovie.bind(this);
+    this.state = { moive: [], id: null, redirect: false, error: false };
+    this.starsTotal = 5;
   }
 
   componentDidMount() {
     const id = this.props.match.params.id;
     this.setState({ id: id });
-
-    this.timer = setInterval(() => {
-      axios.get("http://3.120.96.16:3001/movies/" + id).then(response => {
+    let CancelToken = axios.CancelToken;
+    this.source = CancelToken.source();
+    axios
+      .get("http://3.120.96.16:3001/movies/" + id, {
+        cancelToken: this.source.token
+      })
+      .then(response => {
         console.log(response);
         this.setState({ movie: response.data });
       });
-    }, 1000);
   }
-
-
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    this.source.cancel();
   }
 
-  deleteMovie() {
+  deleteMovie = () => {
     const id = this.props.match.params.id;
     axios.delete("http://3.120.96.16:3001/movies/" + id).then(() => {
-        this.setState({redirect:true})
+      this.setState({ redirect: true });
     });
   };
 
   render() {
-      let id = this.props.match.params.id;
+    let id = this.props.match.params.id;
     const editUrl = "/edit-movies/" + id;
-    if(this.state.redirect){
-      return <Redirect to="/" />;
-    }
+
+    if (this.state.redirect) return <Redirect to="/" /> ;
+    
     const movie = this.state.movie ? (
- 
-      <div >
+      <div>
         <Helmet>
           <title>{this.state.movie.title}</title>
         </Helmet>
         <div className="eachMovieInfo">
           {" "}
-           <Link to={editUrl} style={{ width: "2rem" }}>
-           <MaterialIcon icon="edit" />
-           </Link>
-
-           <button
-                className="deleteBtn"
-                onClick={() => this.deleteMovie()}
-              >
-                <MaterialIcon icon="delete_forever" />
-              </button>
+          <Link to={editUrl} style={{ width: "2rem" }}>
+            <MaterialIcon icon="edit" />
+          </Link>
+          <button className="deleteBtn" onClick={() => this.deleteMovie()}>
+            <MaterialIcon icon="delete_forever" />
+          </button>
           <div className="imgCtn">
             <img src={Movie} alt="MovieImg" className="movieImg" />
           </div>
           <div className="movieTitleCtn">
             <h1>{this.state.movie.title}</h1>
             <h3>{this.state.movie.director}</h3>
+            <div className="stars-outer">
+              <div
+                className="stars-inner"
+                style={{
+                  width: `${Math.round(
+                    ((this.state.movie.rating / this.starsTotal) * 100) / 10
+                  ) * 10}%`
+                }}
+              ></div>
+            </div>
+            <span className="number-rating"></span>
           </div>
           <p>{this.state.movie.description}</p>
         </div>
@@ -77,7 +83,8 @@ class MovieInfo extends Component {
       <div className="center"> Loading ... </div>
     );
 
-    return <div className="container">{movie}</div>;
+    return <div className="container">{movie}
+              </div>;
   }
 }
 

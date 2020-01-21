@@ -18,6 +18,7 @@
 .container{
   height: 80%;
   width: 100%;
+  margin-top: 10px;
 }
 
 
@@ -201,7 +202,6 @@ th {
   background-color: transparent;
   font-size: 1.5rem;
   text-shadow: 1px 1px 1px black;
-  word-wrap: break-word;
 
 }
 
@@ -216,6 +216,10 @@ td {
   vertical-align: middle; 
   font-size: 1.2rem;
   padding: 10px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: break-all;
 }
 
 /* movieImg td */
@@ -282,19 +286,19 @@ table tbody tr td:nth-child(5) {
 
 /* Movie Info Component */
 div.eachMovieInfo {
-  width: 50%;
+  width: 70%;
   min-height: 400px;
   max-height: 70%;
-  margin: 10px auto;
+  margin: 100px auto 0px auto;
   border: 1px solid rgb(208, 207, 207);
   position: relative;
 }
 
 .eachMovieInfo .imgCtn {
-  width: 35%;
+  width: 25%;
   position: absolute;
-  left: -15%;
-  top: 10%;
+  left: -5%;
+  top: -10%;
 }
 
 .eachMovieInfo .imgCtn .movieImg {
@@ -308,4 +312,11 @@ div.eachMovieInfo {
 
 .movieTitleCtn {
   border: 1px solid grey;
+  height: 9rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
 }
+
+

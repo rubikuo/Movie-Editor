@@ -66,29 +66,34 @@ class AddMovie extends Component {
     let warningTitle;
     let warningDirector;
     let warningRating;
-    let rating;
+    let ratingNum;
     let warningDescription;
+
+    let title = false;
+    let director = false;
+    let rating = false;
+    let description = false;
 
     if (this.state.title.length >= 1 && this.state.title.length <= 40) {
       warningTitle = { color: "blue" };
-
+      title = true;
     } else {
       warningTitle = { color: "red" };
-   
+      title = false;
     }
 
     if (this.state.director.length >= 1 && this.state.director.length <= 40) {
-    
       warningDirector = { color: "blue" };
+      director = true;
     } else {
       warningDirector = { color: "red" };
-
+      director = false;
     }
 
     if (this.state.rating === "") {
-      rating = 0;
+      ratingNum = 0;
     } else {
-      rating = parseFloat(this.state.rating);
+      ratingNum = parseFloat(this.state.rating);
     }
 
     if (
@@ -96,19 +101,34 @@ class AddMovie extends Component {
       parseFloat(this.state.rating) <= 5.0
     ) {
       warningRating = { color: "blue" };
-     
+      rating = true;
     } else if (this.state.rating === undefined) {
       warningRating = { color: "red" };
-
+      rating = false;
     } else {
       warningRating = { color: "red" };
-
+      rating = false;
     }
 
-    if (this.state.description.length >= 1 && this.state.description <= 300) {
+    if (
+      this.state.description.length >= 1 &&
+      this.state.description.length <= 300
+    ) {
       warningDescription = { color: "blue" };
+      description = true;
     } else {
       warningDescription = { color: "red" };
+      description = false;
+    }
+     
+    // to check if all the condition is true
+    let warningMsg;
+    if (title && director && rating && description) {
+      warningMsg = null;
+    } else if (this.state.error) {
+      warningMsg = <p>"Oooppps Something is wrong"</p>;
+    } else {
+      warningMsg = null;
     }
 
     return (
@@ -157,7 +177,7 @@ class AddMovie extends Component {
                 onChange={this.onChangeRating}
               />
               <span className="warning" style={warningRating}>
-                {rating}/5.0
+                {ratingNum}/5.0
               </span>
             </label>
             <label>
@@ -178,6 +198,7 @@ class AddMovie extends Component {
             Add
           </button>
         </form>
+        {warningMsg}
       </div>
     );
   }

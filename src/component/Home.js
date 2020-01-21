@@ -14,7 +14,7 @@ import Movie from "./movie.png";
 class MovieTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { movieDatas: [], search:"" };
+    this.state = { movieDatas: [], search: "" };
     this.url = "http://3.120.96.16:3001/movies";
     this.starsTotal = 5;
     this.source = undefined;
@@ -35,18 +35,15 @@ class MovieTable extends Component {
     });
   };
 
-   // to store search input value in state
-  onChangeSearch(e){ 
-    this.setState({search: e.target.value})
+  // to store search input value in state
+  onChangeSearch(e) {
+    this.setState({ search: e.target.value });
     // console.log(this.state.movieDatas)
   }
-
 
   componentWillUnmount() {
     this.source.cancel();
   }
-
-
 
   deleteMovie = id => {
     axios.delete("http://3.120.96.16:3001/movies/" + id).then(() => {
@@ -56,10 +53,10 @@ class MovieTable extends Component {
 
   render() {
     const { movieDatas } = this.state;
-    const copyData =[];
-    copyData.push(movieDatas.map((data) => data ));
+    const copyData = [];
+    copyData.push(movieDatas.map(data => data));
     console.log(copyData);
-   
+
     const renderTbody = movieDatas.length ? (
       movieDatas.map(movie => {
         const infoUrl = "/movie-info/" + movie.id;
@@ -107,15 +104,14 @@ class MovieTable extends Component {
             </td>
           </tr>
         );
-        
-        if(this.state.search === "") {
-          return content; 
-        }else if(movie.title.toLowerCase().includes(this.state.search)){
+
+        if (this.state.search === "") {
+          return content;
+        } else if (movie.title.toLowerCase().includes(this.state.search)) {
           return content;
         } else {
           return null;
-        } 
-        
+        }
       })
     ) : (
       <tr className="center">
@@ -123,13 +119,18 @@ class MovieTable extends Component {
       </tr>
     );
 
-
     return (
-      <div className="moviesDiv">
+      <div className="container">
         <Helmet>
           <title>Home: MoviePedia</title>
         </Helmet>
-        <input className="searchInput" type="text" placeholder="search" value={this.state.search} onChange={this.onChangeSearch}></input>
+        <input
+          className="searchInput"
+          type="text"
+          placeholder="search"
+          value={this.state.search}
+          onChange={this.onChangeSearch}
+        ></input>
 
         <table cellSpacing={0}>
           <thead>
