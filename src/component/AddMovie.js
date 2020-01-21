@@ -43,24 +43,21 @@ class AddMovie extends Component {
         this.setState({ redirect: false, error: true });
       });
   };
-
-  onChangeTitle = e => {
-    this.setState({ title: e.target.value });
+  // to make the state property name dynamic by using object["sting"]
+  // in this case [e.target.id] is a dynamic varible to state object
+  handleOnchange = e => {
+    if (e.target.id === "rating") {
+      this.setState({
+        // eslint-disable-next-line no-useless-escape
+        rating: e.target.value.replace(/^(\-)*(\d+)\.(\d).*$/, "$1$2.$3")
+      });
+    } else {
+      this.setState({
+        [e.target.id]: e.target.value
+      });
+    }
   };
 
-  onChangeDirector = e => {
-    this.setState({ director: e.target.value });
-  };
-
-  onChangeRating = e => {
-    this.setState({
-      rating: e.target.value.replace(/^(\-)*(\d+)\.(\d).*$/, "$1$2.$3")
-    });
-  };
-
-  onChangeDescription = e => {
-    this.setState({ description: e.target.value });
-  };
 
   render() {
     let warningTitle;
@@ -120,7 +117,7 @@ class AddMovie extends Component {
       warningDescription = { color: "red" };
       description = false;
     }
-     
+
     // to check if all the condition is true
     let warningMsg;
     if (title && director && rating && description) {
@@ -139,55 +136,56 @@ class AddMovie extends Component {
         </Helmet>
         <form className="addForm" onSubmit={this.onSubmit}>
           <div className="formWrapDiv">
-            <label>
+            <label htmlFor="name">
+              {" "}
+              {/*look for input field with id of Name and associate the label with input field */}
               Title
               <input
                 type="text"
-                value={this.state.title}
+                id="title"
                 placeholder="title"
-                onChange={this.onChangeTitle}
+                onChange={this.handleOnchange}
               />
               <span className="warning" style={warningTitle}>
                 {this.state.title.length}/40
               </span>
             </label>
-            <label>
+            <label htmlFor="name">
               Director
               <input
                 type="text"
-                value={this.state.director}
+                id="director"
                 placeholder="director"
-                onChange={this.onChangeDirector}
+                onChange={this.handleOnchange}
               />
               <span className="warning" style={warningDirector}>
                 {this.state.director.length}/40
               </span>
             </label>
-            <label>
+            <label htmlFor="name">
               Rating
               <input
                 type="number"
-                id="rating-control"
+                id="rating"
                 className="form-control"
                 step={0.1}
                 min={1}
                 max={5}
-                value={this.state.rating}
                 placeholder="0.0 - 5.0"
-                onChange={this.onChangeRating}
+                onChange={this.handleOnchange}
               />
               <span className="warning" style={warningRating}>
                 {ratingNum}/5.0
               </span>
             </label>
-            <label>
+            <label htmlFor="name">
               Description
               <textarea
-                className="descriptionCtn"
                 type="text"
+                id="description"
+                className="descriptionCtn"
                 placeholder="description"
-                value={this.state.description}
-                onChange={this.onChangeDescription}
+                onChange={this.handleOnchange}
               ></textarea>
               <span className="warning" style={warningDescription}>
                 {this.state.description.length}/300
