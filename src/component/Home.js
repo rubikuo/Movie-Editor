@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {faStar} from "@fortawesome/free-solid-svg-icons";
-// import { faEdit } from "@fortawesome/free-solid-svg-icons";
-// import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import MaterialIcon from "material-icons-react";
 import Movie from "./movie.png";
+import { FaEdit, FaTrashAlt, FaInfo, FaSearch } from "react-icons/fa";
 
 // create a table for showing all the movies
 
@@ -38,9 +34,9 @@ class MovieTable extends Component {
   // to store search input value in state
   onChangeSearch(e) {
     this.setState({ search: e.target.value });
-    // console.log(this.state.movieDatas)
   }
 
+  // cancel axios
   componentWillUnmount() {
     this.source.cancel();
   }
@@ -64,7 +60,6 @@ class MovieTable extends Component {
 
         const content = (
           <tr key={movie.id}>
-            {/* <td> <MaterialIcon className="movieIcon" icon="local_movies" /></td> */}
             <td>
               <img src={Movie} alt="movieImg" className="movieImg" />
             </td>
@@ -81,25 +76,43 @@ class MovieTable extends Component {
                   }}
                 ></div>
               </div>
-              <span className="number-rating"></span>
             </td>
             <td>
-              <span>
-                <Link to={infoUrl}>
-                  <MaterialIcon icon="description" />
-                </Link>
-              </span>
-              <span>
-                <Link to={editUrl}>
-                  <MaterialIcon icon="edit" />
-                </Link>
-              </span>
+              <Link to={infoUrl}>
+                <div className="tooltip">
+                  <span class="tooltiptext">Info</span>
+                  <FaInfo
+                    size={22}
+                    color="lightblue"
+                    style={{ margin: "5px" }}
+                  />
+                </div>
+              </Link>
+
+              <Link to={editUrl}>
+                <div className="tooltip">
+                  <span class="tooltiptext">Edit</span>
+                  <FaEdit
+                  className="editIcon"
+                    size={22}
+                    color="lightblue"
+                    style={{ margin: "5px" }}
+                  />
+                </div>
+              </Link>
 
               <button
                 className="deleteBtn"
                 onClick={() => this.deleteMovie(movie.id)}
               >
-                <MaterialIcon icon="delete_forever" />
+                <div className="tooltip">
+                  <span class="tooltiptext">Delete</span>
+                  <FaTrashAlt
+                    size={22}
+                    color="lightblue"
+                    style={{ margin: "5px" }}
+                  />
+                </div>
               </button>
             </td>
           </tr>
@@ -107,7 +120,10 @@ class MovieTable extends Component {
 
         if (this.state.search === "") {
           return content;
-        } else if (movie.title.toLowerCase().includes(this.state.search)) {
+        } else if (
+          movie.title.toLowerCase().includes(this.state.search) ||
+          movie.director.toLowerCase().includes(this.state.search)
+        ) {
           return content;
         } else {
           return null;
@@ -124,13 +140,19 @@ class MovieTable extends Component {
         <Helmet>
           <title>Home: MoviePedia</title>
         </Helmet>
-        <input
-          className="searchInput"
-          type="text"
-          placeholder="search"
-          value={this.state.search}
-          onChange={this.onChangeSearch}
-        ></input>
+        <div style={{ position: "relative" }}>
+          <input
+            className="searchInput"
+            type="text"
+            placeholder="search by title or director"
+            value={this.state.search}
+            onChange={this.onChangeSearch}
+          />
+          <FaSearch
+            color="darkGrey"
+            style={{ position: "absolute", left: "25%", top: "35%" }}
+          />
+        </div>
 
         <table cellSpacing={0}>
           <thead>

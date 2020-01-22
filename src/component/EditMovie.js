@@ -89,18 +89,18 @@ class EditMovie extends Component {
     let descriptionValidation = false;
 
     if (this.state.title.length >= 1 && this.state.title.length <= 40) {
-      warningTitle = { color: "blue" };
+      warningTitle = { color: "rgb(82, 223, 242)" };
       titleValidation = true;
     } else {
-      warningTitle = { color: "red" };
+      warningTitle = { color: "rgb(245, 29, 26)" };
       titleValidation = false;
     }
 
     if (this.state.director.length >= 1 && this.state.director.length <= 40) {
-      warningDirector = { color: "blue" };
+      warningDirector = { color: "rgb(82, 223, 242)" };
       directorValidation = true;
     } else {
-      warningDirector = { color: "red" };
+      warningDirector = { color: "rgb(245, 29, 26)" };
       directorValidation = false;
     }
 
@@ -114,14 +114,13 @@ class EditMovie extends Component {
       parseFloat(this.state.rating) >= 0.0 &&
       parseFloat(this.state.rating) <= 5.0
     ) {
-      warningRating = { color: "blue" };
+      warningRating = { color: "rgb(82, 223, 242)" };
       ratingValidation = true;
-      // to check if the input is empty space(undefined)
     } else if (this.state.rating === undefined) {
-      warningRating = { color: "red" };
+      warningRating = { color: "rgb(245, 29, 26)" };
       ratingValidation = false;
     } else {
-      warningRating = { color: "red" };
+      warningRating = { color: "rgb(245, 29, 26)" };
       ratingValidation = false;
     }
 
@@ -129,19 +128,24 @@ class EditMovie extends Component {
       this.state.description.length >= 1 &&
       this.state.description.length <= 300
     ) {
-      warningDescription = { color: "blue" };
+      warningDescription = { color: "rgb(82, 223, 242)" };
       descriptionValidation = true;
     } else {
-      warningDescription = { color: "red" };
+      warningDescription = { color: "rgb(245, 29, 26)" };
       descriptionValidation = false;
     }
 
     // to check if all the input condition is true
     let warningMsg;
-    if (titleValidation && directorValidation && ratingValidation && descriptionValidation) {
+    if (
+      titleValidation &&
+      directorValidation &&
+      ratingValidation &&
+      descriptionValidation
+    ) {
       warningMsg = null;
     } else if (this.state.error) {
-      warningMsg = <p>"Oooppps Something is wrong"</p>;
+      warningMsg = <p className="warningMsg">"Invalid Input please check and try again!"</p>;
     } else {
       warningMsg = null;
     }
@@ -218,8 +222,8 @@ class EditMovie extends Component {
               </span>
             </label>
           </div>
-          <button id="addBtn" type="submit">
-            Add
+          <button id="updateBtn" type="submit">
+            Update
           </button>
         </form>
         {warningMsg}

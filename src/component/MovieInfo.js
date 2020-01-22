@@ -3,7 +3,8 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import Movie from "./movie.png";
 import { Redirect, Link } from "react-router-dom";
-import MaterialIcon from "material-icons-react";
+import { FaEdit, FaTrashAlt} from "react-icons/fa";
+// import MaterialIcon from "material-icons-react";
 // this is rendered by clicking a movie in the movie table
 
 class MovieInfo extends Component {
@@ -43,8 +44,8 @@ class MovieInfo extends Component {
     let id = this.props.match.params.id;
     const editUrl = "/edit-movies/" + id;
 
-    if (this.state.redirect) return <Redirect to="/" /> ;
-    
+    if (this.state.redirect) return <Redirect to="/" />;
+
     const movie = this.state.movie ? (
       <div>
         <Helmet>
@@ -53,10 +54,20 @@ class MovieInfo extends Component {
         <div className="eachMovieInfo">
           {" "}
           <Link to={editUrl} style={{ width: "2rem" }}>
-            <MaterialIcon icon="edit" />
+            <div className="tooltip">
+              <span class="tooltiptext">Edit</span>
+              <FaEdit size={22} color="lightblue" style={{ margin: "5px" }} />
+            </div>
           </Link>
           <button className="deleteBtn" onClick={() => this.deleteMovie()}>
-            <MaterialIcon icon="delete_forever" />
+            <div className="tooltip">
+              <span class="tooltiptext">Delete</span>
+              <FaTrashAlt
+                size={22}
+                color="lightblue"
+                style={{ margin: "5px" }}
+              />
+            </div>
           </button>
           <div className="imgCtn">
             <img src={Movie} alt="MovieImg" className="movieImg" />
@@ -74,17 +85,18 @@ class MovieInfo extends Component {
                 }}
               ></div>
             </div>
-            <span className="number-rating"></span>
           </div>
-          <p>{this.state.movie.description}</p>
+          <div className="descriptionDiv">
+          <h3>Description</h3>
+          <p className="descriptionContent">{this.state.movie.description}</p>
+          </div>
         </div>
       </div>
     ) : (
       <div className="center"> Loading ... </div>
     );
 
-    return <div className="container">{movie}
-              </div>;
+    return <div className="container">{movie}</div>;
   }
 }
 
