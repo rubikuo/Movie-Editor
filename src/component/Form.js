@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 
 class Form extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-  
-      
-    }
-  }
+
 
   
   render() {
+    console.log(this.props);
     let warningTitle;
     let warningDirector;
     let warningRating;
@@ -81,7 +76,7 @@ class Form extends Component {
 
     return (
       <>
-        <form className="addForm" onSubmit={this.props.onSubmit}>
+        <form className="addForm" onSubmit={this.props.handleOnchange}>
           <div className="formWrapDiv">
             <label htmlFor="name">
               {" "}
@@ -90,7 +85,7 @@ class Form extends Component {
               <input
                 type="text"
                 id="title"
-          
+                value={this.props.title}
                 placeholder="title"
                 onChange={this.props.handleOnchange}
               />
@@ -106,6 +101,7 @@ class Form extends Component {
                 
                 placeholder="director"
                 onChange={this.props.handleOnchange}
+                value={this.props.director}
               />
               <span className="warning" style={warningDirector}>
                 {this.props.director.length}/40
@@ -122,6 +118,7 @@ class Form extends Component {
                 min={1}
                 max={5}
                 placeholder="0.0 - 5.0"
+                value={this.props.rating}
                 onChange={this.props.handleOnchange}
               />
               <span className="warning" style={warningRating}>
@@ -133,7 +130,7 @@ class Form extends Component {
               <textarea
                 type="text"
                 id="description"
-                
+                value={this.props.description}
                 className="descriptionCtn"
                 placeholder="description"
                 onChange={this.props.handleOnchange}

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 // import {faStar} from "@fortawesome/free-solid-svg-icons";
 // import { faEdit } from "@fortawesome/free-solid-svg-icons";
 // import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import MaterialIcon from "material-icons-react";
 import Movie from "./movie.png";
 
 // create a table for showing all the movies
@@ -86,12 +85,12 @@ class MovieTable extends Component {
             <td>
               <span>
                 <Link to={infoUrl}>
-                  <MaterialIcon icon="description" />
+                  {/* <MaterialIcon icon="description" /> */}
                 </Link>
               </span>
               <span>
                 <Link to={editUrl}>
-                  <MaterialIcon icon="edit" />
+                  {/* <MaterialIcon icon="edit" /> */}
                 </Link>
               </span>
 
@@ -99,7 +98,7 @@ class MovieTable extends Component {
                 className="deleteBtn"
                 onClick={() => this.deleteMovie(movie.id)}
               >
-                <MaterialIcon icon="delete_forever" />
+                {/* <MaterialIcon icon="delete_forever" /> */}
               </button>
             </td>
           </tr>

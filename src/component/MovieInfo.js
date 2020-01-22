@@ -3,7 +3,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import Movie from "./movie.png";
 import { Redirect, Link } from "react-router-dom";
-import MaterialIcon from "material-icons-react";
+// import MaterialIcon from "material-icons-react";
 // this is rendered by clicking a movie in the movie table
 
 class MovieInfo extends Component {
@@ -53,10 +53,10 @@ class MovieInfo extends Component {
         <div className="eachMovieInfo">
           {" "}
           <Link to={editUrl} style={{ width: "2rem" }}>
-            <MaterialIcon icon="edit" />
+            {/* <MaterialIcon icon="edit" /> */}
           </Link>
           <button className="deleteBtn" onClick={() => this.deleteMovie()}>
-            <MaterialIcon icon="delete_forever" />
+            {/* <MaterialIcon icon="delete_forever" /> */}
           </button>
           <div className="imgCtn">
             <img src={Movie} alt="MovieImg" className="movieImg" />

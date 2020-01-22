@@ -71,7 +71,7 @@ class AddMovie extends Component {
         </Helmet>
 
         <Form
-          onChange={this.handleOnchange}
+          handleOnchange={this.handleOnchange}
           title={this.state.title}
           director={this.state.director}
           rating={this.state.rating}
