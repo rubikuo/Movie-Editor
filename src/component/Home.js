@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {faStar} from "@fortawesome/free-solid-svg-icons";
-// import { faEdit } from "@fortawesome/free-solid-svg-icons";
-// import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Movie from "./movie.png";
+import { FaEdit, FaTrashAlt, FaInfo } from "react-icons/fa";
 
 // create a table for showing all the movies
 
@@ -85,12 +82,12 @@ class MovieTable extends Component {
             <td>
               <span>
                 <Link to={infoUrl}>
-                  {/* <MaterialIcon icon="description" /> */}
+                  <FaInfo />
                 </Link>
               </span>
               <span>
                 <Link to={editUrl}>
-                  {/* <MaterialIcon icon="edit" /> */}
+                  <FaEdit />
                 </Link>
               </span>
 
@@ -98,7 +95,7 @@ class MovieTable extends Component {
                 className="deleteBtn"
                 onClick={() => this.deleteMovie(movie.id)}
               >
-                {/* <MaterialIcon icon="delete_forever" /> */}
+                <FaTrashAlt />
               </button>
             </td>
           </tr>

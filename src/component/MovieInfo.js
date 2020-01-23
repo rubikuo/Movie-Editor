@@ -3,8 +3,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import Movie from "./movie.png";
 import { Redirect, Link } from "react-router-dom";
-// import MaterialIcon from "material-icons-react";
-// this is rendered by clicking a movie in the movie table
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 class MovieInfo extends Component {
   constructor(props) {
@@ -43,8 +42,8 @@ class MovieInfo extends Component {
     let id = this.props.match.params.id;
     const editUrl = "/edit-movies/" + id;
 
-    if (this.state.redirect) return <Redirect to="/" /> ;
-    
+    if (this.state.redirect) return <Redirect to="/" />;
+
     const movie = this.state.movie ? (
       <div>
         <Helmet>
@@ -53,10 +52,10 @@ class MovieInfo extends Component {
         <div className="eachMovieInfo">
           {" "}
           <Link to={editUrl} style={{ width: "2rem" }}>
-            {/* <MaterialIcon icon="edit" /> */}
+            <FaEdit />
           </Link>
           <button className="deleteBtn" onClick={() => this.deleteMovie()}>
-            {/* <MaterialIcon icon="delete_forever" /> */}
+            <FaTrashAlt />
           </button>
           <div className="imgCtn">
             <img src={Movie} alt="MovieImg" className="movieImg" />
@@ -83,8 +82,7 @@ class MovieInfo extends Component {
       <div className="center"> Loading ... </div>
     );
 
-    return <div className="container">{movie}
-              </div>;
+    return <div className="container">{movie}</div>;
   }
 }
 

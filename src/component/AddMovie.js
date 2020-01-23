@@ -76,7 +76,7 @@ class AddMovie extends Component {
           director={this.state.director}
           rating={this.state.rating}
           description={this.state.description}
-          error = {this.state.error}
+          error={this.state.error}
           onSubmit={this.onSubmit}
         />
       </div>

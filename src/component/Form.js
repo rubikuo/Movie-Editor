@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-
 class Form extends Component {
-
-
-  
   render() {
     console.log(this.props);
     let warningTitle;
@@ -66,7 +62,12 @@ class Form extends Component {
 
     // to check if all the condition is true
     let warningMsg;
-    if (titleValidation && directorValidation && ratingValidation && descriptionValidation) {
+    if (
+      titleValidation &&
+      directorValidation &&
+      ratingValidation &&
+      descriptionValidation
+    ) {
       warningMsg = null;
     } else if (this.props.error) {
       warningMsg = <p>"Oooppps Something is wrong"</p>;
@@ -98,7 +99,6 @@ class Form extends Component {
               <input
                 type="text"
                 id="director"
-                
                 placeholder="director"
                 onChange={this.props.handleOnchange}
                 value={this.props.director}
@@ -112,7 +112,6 @@ class Form extends Component {
               <input
                 type="number"
                 id="rating"
-                
                 className="form-control"
                 step={0.1}
                 min={1}
