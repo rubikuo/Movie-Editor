@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import Form from "./Form"
 
 // using axios put
 class EditMovie extends Component {
@@ -77,79 +78,7 @@ class EditMovie extends Component {
   }
 
   render() {
-    let warningTitle;
-    let warningDirector;
-    let warningRating;
-    let ratingNum;
-    let warningDescription;
-
-    let titleValidation = false;
-    let directorValidation = false;
-    let ratingValidation = false;
-    let descriptionValidation = false;
-
-    if (this.state.title.length >= 1 && this.state.title.length <= 40) {
-      warningTitle = { color: "rgb(82, 223, 242)" };
-      titleValidation = true;
-    } else {
-      warningTitle = { color: "rgb(245, 29, 26)" };
-      titleValidation = false;
-    }
-
-    if (this.state.director.length >= 1 && this.state.director.length <= 40) {
-      warningDirector = { color: "rgb(82, 223, 242)" };
-      directorValidation = true;
-    } else {
-      warningDirector = { color: "rgb(245, 29, 26)" };
-      directorValidation = false;
-    }
-
-    if (this.state.rating === "") {
-      ratingNum = 0;
-    } else {
-      ratingNum = parseFloat(this.state.rating);
-    }
-
-    if (
-      parseFloat(this.state.rating) >= 0.0 &&
-      parseFloat(this.state.rating) <= 5.0
-    ) {
-      warningRating = { color: "rgb(82, 223, 242)" };
-      ratingValidation = true;
-    } else if (this.state.rating === undefined) {
-      warningRating = { color: "rgb(245, 29, 26)" };
-      ratingValidation = false;
-    } else {
-      warningRating = { color: "rgb(245, 29, 26)" };
-      ratingValidation = false;
-    }
-
-    if (
-      this.state.description.length >= 1 &&
-      this.state.description.length <= 300
-    ) {
-      warningDescription = { color: "rgb(82, 223, 242)" };
-      descriptionValidation = true;
-    } else {
-      warningDescription = { color: "rgb(245, 29, 26)" };
-      descriptionValidation = false;
-    }
-
-    // to check if all the input condition is true
-    let warningMsg;
-    if (
-      titleValidation &&
-      directorValidation &&
-      ratingValidation &&
-      descriptionValidation
-    ) {
-      warningMsg = null;
-    } else if (this.state.error) {
-      warningMsg = <p className="warningMsg">"Invalid Input please check and try again!"</p>;
-    } else {
-      warningMsg = null;
-    }
-
+    
     // if (this.state.error) {
     //   return <div> <p>Error</p> </div>;
     // }
@@ -159,74 +88,8 @@ class EditMovie extends Component {
         <Helmet>
           <title>Edit Movies</title>
         </Helmet>
-
-        <form className="addForm" onSubmit={this.onSubmit}>
-          <div className="formWrapDiv">
-            <label htmlFor="name">
-              {" "}
-              {/*look for input field with id of Name and associate the label with input field */}
-              Title
-              <input
-                type="text"
-                value={this.state.title}
-                id="title"
-                placeholder="title"
-                onChange={this.handleOnchange}
-              />
-              <span className="warning" style={warningTitle}>
-                {this.state.title.length}/40
-              </span>
-            </label>
-            <label htmlFor="name">
-              Director
-              <input
-                type="text"
-                value={this.state.director}
-                id="director"
-                placeholder="director"
-                onChange={this.handleOnchange}
-              />
-              <span className="warning" style={warningDirector}>
-                {this.state.director.length}/40
-              </span>
-            </label>
-            <label htmlFor="name">
-              Rating
-              <input
-                type="number"
-                value={this.state.rating}
-                id="rating"
-                className="form-control"
-                step={0.1}
-                min={1}
-                max={5}
-                placeholder="0.0 - 5.0"
-                onChange={this.handleOnchange}
-              />
-              <span className="warning" style={warningRating}>
-                {ratingNum}/5.0
-              </span>
-            </label>
-            <label htmlFor="name">
-              Description
-              <textarea
-                type="text"
-                id="description"
-                className="descriptionCtn"
-                value={this.state.description}
-                placeholder="description"
-                onChange={this.handleOnchange}
-              ></textarea>
-              <span className="warning" style={warningDescription}>
-                {this.state.description.length}/300
-              </span>
-            </label>
-          </div>
-          <button id="updateBtn" type="submit">
-            Update
-          </button>
-        </form>
-        {warningMsg}
+        <Form handleOnchange={this.handleOnchange} onSubmit={this.onSubmit} {...this.state}/>
+ 
       </div>
     );
   }
