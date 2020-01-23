@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import Form from "./Form";
 
 // using axios put
 class EditMovie extends Component {
@@ -153,67 +154,15 @@ class EditMovie extends Component {
           <title>Edit Movies</title>
         </Helmet>
 
-        <form className="editForm" onSubmit={this.onSubmit}>
-          <div className="formWrapDiv">
-            <label>
-              Title
-              <input
-                type="text"
-                value={this.state.title}
-                placeholder="title"
-                onChange={this.onChangeTitle}
-              />
-              <span className="warning" style={warningTitle}>
-                {this.state.title.length}/40
-              </span>
-            </label>
-            <label>
-              Director
-              <input
-                type="text"
-                value={this.state.director}
-                placeholder="director"
-                onChange={this.onChangeDirector}
-              />
-              <span className="warning" style={warningDirector}>
-                {this.state.director.length}/40
-              </span>
-            </label>
-            <label>
-              Rating
-              <input
-                type="number"
-                id="rating-control"
-                className="form-control"
-                step={0.1}
-                min={1}
-                max={5}
-                value={this.state.rating}
-                placeholder="0.0 - 5.0"
-                onChange={this.onChangeRating}
-              />
-              <span className="warning" style={warningRating}>
-                {ratingNum}/5.0
-              </span>
-            </label>
-            <label>
-              Description
-              <textarea
-                className="descriptionCtn"
-                type="text"
-                placeholder="description"
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-              ></textarea>
-              <span className="warning" style={warningDescription}>
-                {this.state.description.length}/300
-              </span>
-            </label>
-          </div>
-          <button id="addBtn" type="submit">
-            Add
-          </button>
-        </form>
+        <Form
+          handleOnchange={this.handleOnchange}
+          title={this.state.title}
+          director={this.state.director}
+          rating={this.state.rating}
+          description={this.state.description}
+          error={this.state.error}
+          onSubmit={this.onSubmit}
+        />
         {warningMsg}
       </div>
     );
