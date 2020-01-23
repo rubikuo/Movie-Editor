@@ -60,14 +60,17 @@ class AddMovie extends Component {
   };
 
   render() {
-   
     return (
       <div className="container">
         {this.state.redirect ? <Redirect to="/" /> : null}
         <Helmet>
           <title>Add Movies</title>
         </Helmet>
-        <Form handleOnchange={this.handleOnchange} onSubmit={this.onSubmit} {...this.state}/>
+        <Form
+          handleOnchange={this.handleOnchange}
+          onSubmit={this.onSubmit}
+          {...this.state}
+        />
       </div>
     );
   }

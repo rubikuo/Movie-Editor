@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import Form from "./Form"
+import Form from "./Form";
 
 // using axios put
 class EditMovie extends Component {
@@ -78,7 +78,6 @@ class EditMovie extends Component {
   }
 
   render() {
-    
     // if (this.state.error) {
     //   return <div> <p>Error</p> </div>;
     // }
@@ -88,8 +87,11 @@ class EditMovie extends Component {
         <Helmet>
           <title>Edit Movies</title>
         </Helmet>
-        <Form handleOnchange={this.handleOnchange} onSubmit={this.onSubmit} {...this.state}/>
- 
+        <Form
+          handleOnchange={this.handleOnchange}
+          onSubmit={this.onSubmit}
+          {...this.state}
+        />
       </div>
     );
   }

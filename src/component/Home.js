@@ -93,7 +93,7 @@ class MovieTable extends Component {
                 <div className="tooltip">
                   <span class="tooltiptext">Edit</span>
                   <FaEdit
-                  className="editIcon"
+                    className="editIcon"
                     size={22}
                     color="lightblue"
                     style={{ margin: "5px" }}

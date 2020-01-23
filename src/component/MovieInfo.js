@@ -3,7 +3,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import Movie from "./movie.png";
 import { Redirect, Link } from "react-router-dom";
-import { FaEdit, FaTrashAlt} from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 // import MaterialIcon from "material-icons-react";
 // this is rendered by clicking a movie in the movie table
 
@@ -87,8 +87,8 @@ class MovieInfo extends Component {
             </div>
           </div>
           <div className="descriptionDiv">
-          <h3>Description</h3>
-          <p className="descriptionContent">{this.state.movie.description}</p>
+            <h3>Description</h3>
+            <p className="descriptionContent">{this.state.movie.description}</p>
           </div>
         </div>
       </div>
