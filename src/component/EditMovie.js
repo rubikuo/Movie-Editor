@@ -78,9 +78,7 @@ class EditMovie extends Component {
   }
 
   render() {
-    // if (this.state.error) {
-    //   return <div> <p>Error</p> </div>;
-    // }
+ 
 
     return (
       <div className="container">
