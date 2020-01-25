@@ -55,13 +55,13 @@ class MovieInfo extends Component {
           {" "}
           <Link to={editUrl} style={{ width: "2rem" }}>
             <div className="tooltip">
-              <span class="tooltiptext">Edit</span>
+              <span className="tooltiptext">Edit</span>
               <FaEdit size={22} color="lightblue" style={{ margin: "5px" }} />
             </div>
           </Link>
           <button className="deleteBtn" onClick={() => this.deleteMovie()}>
             <div className="tooltip">
-              <span class="tooltiptext">Delete</span>
+              <span className="tooltiptext">Delete</span>
               <FaTrashAlt
                 size={22}
                 color="lightblue"
@@ -93,7 +93,14 @@ class MovieInfo extends Component {
         </div>
       </div>
     ) : (
-      <div className="center"> Loading ... </div>
+      <div className="center">
+        <h1>404</h1>
+        <p>PAGE NOT FOUND</p>
+        <Link to="/" className="goBackLink">
+          {" "}
+          {`>> Back to Home <<`}
+        </Link>
+      </div>
     );
 
     return <div className="container">{movie}</div>;

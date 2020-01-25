@@ -53,6 +53,7 @@ class MovieTable extends Component {
   };
 
   render() {
+    console.log(this.state.error);
     const { movieDatas } = this.state;
     const copyData = [];
     copyData.push(movieDatas.map(data => data));

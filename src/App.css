@@ -17,7 +17,6 @@ body {
   background-size: cover;
 }
 
-
 .App {
   text-align: center;
   display: flex;
@@ -31,8 +30,8 @@ body {
   height: 80%;
   width: 100%;
   margin-top: 30px;
+  position: relative;
 }
-
 
 /* navigation */
 nav {
@@ -51,11 +50,10 @@ nav {
   color: white;
   text-shadow: 2px 2px 2px rgb(29, 29, 29);
   margin: 5px 15px;
+  cursor: pointer;
 }
 
-.links:hover{
-  color: rgb(28, 238, 242);
-}
+
 
 /*form for Add Movie & Edit Movie */
 
@@ -144,7 +142,6 @@ span.warning {
   text-shadow: 1px 1px 1px rgb(21, 21, 21);
 }
 
-
 button:focus {
   outline: none;
 }
@@ -167,8 +164,6 @@ button.deleteBtn {
 /*Edit component*/
 
 /*  Home Component  --- Movie */
-
-
 
 table {
   width: 90%;
@@ -225,8 +220,6 @@ table tbody tr td:nth-child(5) {
   padding: 15px 10px;
 }
 
-
-
 /* Stars Rating style with fontawesome (link insert in html <head>)*/
 .stars-outer {
   position: relative;
@@ -258,7 +251,6 @@ table tbody tr td:nth-child(5) {
   text-shadow: 2px 1px 1px rgb(29, 29, 29);
 }
 
-
 /* for Info, Edit, Delete options in table */
 .tooltip {
   position: relative;
@@ -285,8 +277,46 @@ table tbody tr td:nth-child(5) {
   visibility: visible;
 }
 
-
 /* Movie Info Component */
+
+.center {
+  width: 50%;
+  height: 300px;
+  position: absolute;
+  background: linear-gradient(
+      0deg,
+      rgba(75, 75, 75, 0.913),
+      rgba(99, 97, 97, 0.899)
+    ),
+    url("https://previews.123rf.com/images/javarman/javarman1210/javarman121000161/16061209-grunge-film-background-with-space-for-text-or-image.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  border: 1px solid rgb(87, 179, 191);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 2rem;
+  background-color: rgba(240, 185, 185, 0.098);
+  text-shadow: 1px 1px 1px black;
+  color: rgb(87, 179, 191);
+}
+
+.goBackLink{
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.goBackLink:active{
+  color: rgb(213, 213, 213);
+}
+
+
+
 div.eachMovieInfo {
   width: 70%;
   min-height: 400px;
@@ -294,6 +324,8 @@ div.eachMovieInfo {
   margin: 100px auto 0px auto;
   border: 1px solid rgb(137, 195, 208);
   position: relative;
+  color: rgb(41, 41, 41);
+  text-shadow: 1px 1px 1px rgb(164, 164, 164);
 }
 
 .eachMovieInfo .imgCtn {
@@ -307,11 +339,6 @@ div.eachMovieInfo {
   background-color: rgb(235, 235, 235);
   border-radius: 4px;
 }
-/* 
-.infoCtn {
-  border: 1px solid grey;
-  
-} */
 
 .movieTitleCtn {
   border: 1px dashed rgb(138, 138, 138);
@@ -321,14 +348,16 @@ div.eachMovieInfo {
   justify-content: space-evenly;
 }
 
-.descriptionDiv{
+.descriptionDiv {
   padding: 10px;
+
 }
 
-p.descriptionContent{
+p.descriptionContent {
   padding: 5px 30px;
   font-size: 1.1rem;
   margin-top: 15px;
-  text-align: justify;
-
+  text-align: left;
+  color: white;
+  text-shadow: 1px 1px 1px rgb(36, 36, 36);
 }

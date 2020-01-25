@@ -19,7 +19,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home}></Route>
         <Route path="/add-movies" component={AddMovie}></Route>
-        <Route path="/edit-movies/:id" component={EditMovie}></Route>
+        <Route path="/edit-movies/:id" component={EditMovie}></Route> {/* the (: colon here is to define after slash (/) can be anything and here we want to put an id...so if without (:) then the url will only read when we write "id" as exact word) */}
         <Route path="/movie-info/:id" component={MovieInfo}></Route>
         </Switch>
       </Router>

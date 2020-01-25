@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 export default class Form extends Component {
   render() {
+    // to control warning message
     let warningTitle;
     let warningDirector;
     let warningRating;
