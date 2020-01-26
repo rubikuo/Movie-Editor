@@ -10,7 +10,7 @@ import { FaEdit, FaTrashAlt, FaInfo, FaSearch } from "react-icons/fa";
 class MovieTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { movieDatas: [], search: "", error: false };
+    this.state = { movieDatas: [], search: "", error: false, dataLoaded:false};
     this.url = "http://3.120.96.16:3001/movies";
     this.starsTotal = 5;
     this.source = undefined;
@@ -27,9 +27,8 @@ class MovieTable extends Component {
     axios
       .get(this.url, { cancelToken: this.source.token })
       .then(response => {
-        // console.log(response.data);
         let datas = response.data;
-        this.setState({ movieDatas: datas });
+        this.setState({ movieDatas: datas, dataLoaded:true});
       })
       .catch(error => {
         this.setState({ error: true });
@@ -47,9 +46,7 @@ class MovieTable extends Component {
   }
 
   deleteMovie = id => {
-    axios
-    .delete("http://3.120.96.16:3001/movies/" + id)
-    .then(() => {
+    axios.delete("http://3.120.96.16:3001/movies/" + id).then(() => {
       this.fetchData();
     });
   };
@@ -57,21 +54,27 @@ class MovieTable extends Component {
   render() {
     const { movieDatas } = this.state;
     const { search } = this.state;
+    let renderContent;
 
     // to check if the request is bad then there is an error
     if (this.state.error) {
       return (
         <div className="container">
-        <div className="center">
-          <p>Something is wrong</p>
-        </div>
+          <div className="center">
+            <h1>404</h1>
+            <p>PAGE NOT FOUND</p>
+            <Link to="/" className="goBackLink">
+              {`>> Back to Home <<`}
+            </Link>
+          </div>
         </div>
       );
     }
 
+    if(this.state.dataLoaded){
     // to check if there is any movie in the movieDatas array
     // if yes render table content, if not render no post yet
-    const renderContent = movieDatas.length ? (
+    renderContent = movieDatas.length ? (
       <table cellSpacing={0}>
         <thead>
           <tr>
@@ -90,10 +93,7 @@ class MovieTable extends Component {
             const content = (
               <tr key={movie.id}>
                 <td>
-                  <img src={Movie} 
-                  alt="movieImg" 
-                  className="movieImg" 
-                  />
+                  <img src={Movie} alt="movieImg" className="movieImg" />
                 </td>
                 <td>{movie.title}</td>
                 <td>{movie.director}</td>
@@ -116,7 +116,7 @@ class MovieTable extends Component {
                       <FaInfo
                         size={22}
                         color="lightblue"
-                        style={{ margin: "5px"}}
+                        style={{ margin: "5px" }}
                       />
                     </div>
                   </Link>
@@ -169,6 +169,8 @@ class MovieTable extends Component {
       </div>
     );
 
+  }
+
     return (
       <div className="container">
         <Helmet>
@@ -181,7 +183,7 @@ class MovieTable extends Component {
           <input
             className="searchInput"
             type="text"
-            maxlength="10"
+            maxLength="40"
             placeholder="search by title or director"
             value={this.state.search}
             onChange={this.onChangeSearch}

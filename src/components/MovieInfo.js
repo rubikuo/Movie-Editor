@@ -10,7 +10,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 class MovieInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = { moive: [], redirect: false, error: false };
+    this.state = { moive: [], redirect: false, error: false, dataLoaded: false };
     this.infoUrl =
       "http://3.120.96.16:3001/movies/" + this.props.match.params.id;
     this.starsTotal = 5;
@@ -24,9 +24,12 @@ class MovieInfo extends Component {
         cancelToken: this.source.token
       })
       .then(response => {
-        console.log(response);
-        this.setState({ movie: response.data });
-      });
+        this.setState({ movie: response.data, dataLoaded:true});
+        
+      })
+      .catch(error =>{
+        this.setState({error: true});
+      })
   }
 
   componentWillUnmount() {
@@ -35,20 +38,33 @@ class MovieInfo extends Component {
 
   deleteMovie = () => {
     const id = this.props.match.params.id;
-    axios
-    .delete("http://3.120.96.16:3001/movies/" + id)
-    .then(() => {
+    axios.delete("http://3.120.96.16:3001/movies/" + id).then(() => {
       this.setState({ redirect: true });
     });
   };
 
   render() {
+    let movieContent;
     let id = this.props.match.params.id;
     const editUrl = "/edit-movies/" + id;
 
     if (this.state.redirect) return <Redirect to="/" />;
 
-    const movie = this.state.movie ? (
+    if (this.state.error) {
+      return (
+        <div className="container">
+          <div className="center">
+            <h1>404</h1>
+            <p>PAGE NOT FOUND</p>
+            <Link to="/" className="goBackLink">
+              {`>> Back to Home <<`}
+            </Link>
+          </div>
+        </div>
+      );
+    }
+    if(this.state.dataLoaded){
+     movieContent = this.state.movie ? (
       <div>
         <Helmet>
           <title>{this.state.movie.title}</title>
@@ -57,10 +73,7 @@ class MovieInfo extends Component {
           <Link to={editUrl} style={{ width: "2rem" }}>
             <div className="tooltip">
               <span className="tooltiptext">Edit</span>
-              <FaEdit size={22} 
-                color="lightblue" 
-                style={{ margin: "5px" }} 
-              />
+              <FaEdit size={22} color="lightblue" style={{ margin: "5px" }} />
             </div>
           </Link>
           <button className="deleteBtn" onClick={() => this.deleteMovie()}>
@@ -74,10 +87,7 @@ class MovieInfo extends Component {
             </div>
           </button>
           <div className="imgCtn">
-            <img src={Movie} 
-            alt="MovieImg" 
-            className="movieImg"
-            />
+            <img src={Movie} alt="MovieImg" className="movieImg" />
           </div>
           <div className="movieTitleCtn">
             <h1>{this.state.movie.title}</h1>
@@ -86,7 +96,9 @@ class MovieInfo extends Component {
               <div
                 className="stars-inner"
                 style={{
-                  width: `${Math.round(((this.state.movie.rating / this.starsTotal) * 100) / 10) * 10}%`
+                  width: `${Math.round(
+                    ((this.state.movie.rating / this.starsTotal) * 100) / 10
+                  ) * 10}%`
                 }}
               ></div>
             </div>
@@ -99,15 +111,12 @@ class MovieInfo extends Component {
       </div>
     ) : (
       <div className="center">
-        <h1>404</h1>
-        <p>PAGE NOT FOUND</p>
-        <Link to="/" className="goBackLink">
-          {`>> Back to Home <<`}
-        </Link>
+        <p>Movie not found</p>
       </div>
     );
+    }
 
-    return <div className="container">{movie}</div>;
+    return <div className="container">{movieContent}</div>;
   }
 }
 
