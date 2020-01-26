@@ -1,13 +1,12 @@
 import React from "react";
 import "./App.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import Home from "./component/Home";
-import AddMovie from "./component/AddMovie";
-import EditMovie from "./component/EditMovie";
-import MovieInfo from "./component/MovieInfo";
-import Navigation from "./component/Navigation";
-
-
+import Home from "./components/Home";
+import AddMovie from "./components/AddMovie";
+import EditMovie from "./components/EditMovie";
+import MovieInfo from "./components/MovieInfo";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 // routes will be here
 
@@ -15,16 +14,16 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Navigation/>
-      <Switch>
-        <Route exact path="/" component={Home}></Route>
-        <Route path="/add-movies" component={AddMovie}></Route>
-        <Route path="/edit-movies/:id" component={EditMovie}></Route> {/* the (: colon here is to define after slash (/) can be anything and here we want to put an id...so if without (:) then the url will only read when we write "id" as exact word) */}
-        <Route path="/movie-info/:id" component={MovieInfo}></Route>
+        <Navigation />
+        <Switch>
+          <Route exact path="/" component={Home}></Route>
+          <Route path="/add-movies" component={AddMovie}></Route>
+          <Route path="/edit-movies/:id" component={EditMovie}></Route>{" "}
+          {/* the (: colon here is to define after slash (/) can be anything and here we want to put an id...so if without (:) then the url will only read when we write "id" as exact word) */}
+          <Route path="/movie-info/:id" component={MovieInfo}></Route>
         </Switch>
+        <Footer />
       </Router>
-     
-
     </div>
   );
 }

@@ -4,9 +4,6 @@ import { Helmet } from "react-helmet";
 import { Redirect } from "react-router-dom";
 import Form from "./Form";
 
-// a form for user to add a movie
-// post request
-
 class AddMovie extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +61,7 @@ class AddMovie extends Component {
       <div className="container">
         {this.state.redirect ? <Redirect to="/" /> : null}
         <Helmet>
-          <title>Add Movies</title>
+          <title>Add Movie</title>
         </Helmet>
         <Form
           handleOnchange={this.handleOnchange}

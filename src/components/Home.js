@@ -47,27 +47,30 @@ class MovieTable extends Component {
   }
 
   deleteMovie = id => {
-    axios.delete("http://3.120.96.16:3001/movies/" + id).then(() => {
+    axios
+    .delete("http://3.120.96.16:3001/movies/" + id)
+    .then(() => {
       this.fetchData();
     });
   };
 
   render() {
-    console.log(this.state.error);
     const { movieDatas } = this.state;
-    const copyData = [];
-    copyData.push(movieDatas.map(data => data));
-    console.log(copyData);
+    const { search } = this.state;
 
+    // to check if the request is bad then there is an error
     if (this.state.error) {
       return (
-        <div>
-          {" "}
-          <p>Error</p>{" "}
+        <div className="container">
+        <div className="center">
+          <p>Something is wrong</p>
+        </div>
         </div>
       );
     }
 
+    // to check if there is any movie in the movieDatas array
+    // if yes render table content, if not render no post yet
     const renderContent = movieDatas.length ? (
       <table cellSpacing={0}>
         <thead>
@@ -87,7 +90,10 @@ class MovieTable extends Component {
             const content = (
               <tr key={movie.id}>
                 <td>
-                  <img src={Movie} alt="movieImg" className="movieImg" />
+                  <img src={Movie} 
+                  alt="movieImg" 
+                  className="movieImg" 
+                  />
                 </td>
                 <td>{movie.title}</td>
                 <td>{movie.director}</td>
@@ -110,7 +116,7 @@ class MovieTable extends Component {
                       <FaInfo
                         size={22}
                         color="lightblue"
-                        style={{ margin: "5px" }}
+                        style={{ margin: "5px"}}
                       />
                     </div>
                   </Link>
@@ -144,11 +150,11 @@ class MovieTable extends Component {
               </tr>
             );
 
-            if (this.state.search === "") {
+            if (search === "") {
               return content;
             } else if (
-              movie.title.toLowerCase().includes(this.state.search) ||
-              movie.director.toLowerCase().includes(this.state.search)
+              movie.title.toLowerCase().includes(search.toLowerCase()) ||
+              movie.director.toLowerCase().includes(search.toLowerCase())
             ) {
               return content;
             } else {
@@ -158,8 +164,8 @@ class MovieTable extends Component {
         </tbody>
       </table>
     ) : (
-      <div>
-        <p>no post yet</p>
+      <div className="center">
+        <p>No post yet</p>
       </div>
     );
 
@@ -168,10 +174,14 @@ class MovieTable extends Component {
         <Helmet>
           <title>Home: MoviePedia</title>
         </Helmet>
+
         <div style={{ position: "relative" }}>
+          {" "}
+          {/*the position relative is for the search icon to be absolute */}
           <input
             className="searchInput"
             type="text"
+            maxlength="10"
             placeholder="search by title or director"
             value={this.state.search}
             onChange={this.onChangeSearch}
@@ -181,7 +191,6 @@ class MovieTable extends Component {
             style={{ position: "absolute", left: "25%", top: "35%" }}
           />
         </div>
-
         {renderContent}
       </div>
     );

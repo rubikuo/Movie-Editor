@@ -22,7 +22,7 @@ class EditMovie extends Component {
   componentDidMount() {
     this.fetchData();
   }
-  // fat arrow function is to bind this to the component
+
   fetchData = () => {
     let CancelToken = axios.CancelToken;
     this.source = CancelToken.source();
@@ -42,6 +42,7 @@ class EditMovie extends Component {
       });
   };
 
+  // control the rating input value
   handleOnchange = e => {
     if (e.target.id === "rating") {
       this.setState({
@@ -66,7 +67,7 @@ class EditMovie extends Component {
     axios
       .put(this.infoUrl, movie)
       .then(() => {
-        this.props.history.goBack(); //because edit want to go back to the
+        this.props.history.goBack(); 
       })
       .catch(error => {
         this.setState({ error: true });
@@ -78,8 +79,6 @@ class EditMovie extends Component {
   }
 
   render() {
- 
-
     return (
       <div className="container">
         <Helmet>

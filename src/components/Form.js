@@ -73,7 +73,7 @@ export default class Form extends Component {
     } else if (this.props.error) {
       warningMsg = (
         <p className="warningMsg">
-          "Invalid Input please check and try again!"
+          Invalid input please check and try again!
         </p>
       );
     } else {
@@ -120,7 +120,7 @@ export default class Form extends Component {
                 id="rating"
                 className="form-control"
                 step={0.1}
-                min={1}
+                min={0}
                 max={5}
                 placeholder="0.0 - 5.0"
                 onChange={this.props.handleOnchange}

@@ -4,23 +4,23 @@ import { Helmet } from "react-helmet";
 import Movie from "./movie.png";
 import { Redirect, Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-// import MaterialIcon from "material-icons-react";
-// this is rendered by clicking a movie in the movie table
+
+// this page is rendered by clicking  info icon in the movie table
 
 class MovieInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = { moive: [], id: null, redirect: false, error: false };
+    this.state = { moive: [], redirect: false, error: false };
+    this.infoUrl =
+      "http://3.120.96.16:3001/movies/" + this.props.match.params.id;
     this.starsTotal = 5;
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id;
-    this.setState({ id: id });
     let CancelToken = axios.CancelToken;
     this.source = CancelToken.source();
     axios
-      .get("http://3.120.96.16:3001/movies/" + id, {
+      .get(this.infoUrl, {
         cancelToken: this.source.token
       })
       .then(response => {
@@ -35,7 +35,9 @@ class MovieInfo extends Component {
 
   deleteMovie = () => {
     const id = this.props.match.params.id;
-    axios.delete("http://3.120.96.16:3001/movies/" + id).then(() => {
+    axios
+    .delete("http://3.120.96.16:3001/movies/" + id)
+    .then(() => {
       this.setState({ redirect: true });
     });
   };
@@ -52,11 +54,13 @@ class MovieInfo extends Component {
           <title>{this.state.movie.title}</title>
         </Helmet>
         <div className="eachMovieInfo">
-          {" "}
           <Link to={editUrl} style={{ width: "2rem" }}>
             <div className="tooltip">
               <span className="tooltiptext">Edit</span>
-              <FaEdit size={22} color="lightblue" style={{ margin: "5px" }} />
+              <FaEdit size={22} 
+                color="lightblue" 
+                style={{ margin: "5px" }} 
+              />
             </div>
           </Link>
           <button className="deleteBtn" onClick={() => this.deleteMovie()}>
@@ -70,7 +74,10 @@ class MovieInfo extends Component {
             </div>
           </button>
           <div className="imgCtn">
-            <img src={Movie} alt="MovieImg" className="movieImg" />
+            <img src={Movie} 
+            alt="MovieImg" 
+            className="movieImg"
+            />
           </div>
           <div className="movieTitleCtn">
             <h1>{this.state.movie.title}</h1>
@@ -79,9 +86,7 @@ class MovieInfo extends Component {
               <div
                 className="stars-inner"
                 style={{
-                  width: `${Math.round(
-                    ((this.state.movie.rating / this.starsTotal) * 100) / 10
-                  ) * 10}%`
+                  width: `${Math.round(((this.state.movie.rating / this.starsTotal) * 100) / 10) * 10}%`
                 }}
               ></div>
             </div>
@@ -97,7 +102,6 @@ class MovieInfo extends Component {
         <h1>404</h1>
         <p>PAGE NOT FOUND</p>
         <Link to="/" className="goBackLink">
-          {" "}
           {`>> Back to Home <<`}
         </Link>
       </div>
