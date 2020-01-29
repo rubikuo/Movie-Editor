@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import Form from "./Form";
+import Footer from "./Footer";
 
 // using axios put
 class EditMovie extends Component {
@@ -89,6 +90,7 @@ class EditMovie extends Component {
           onSubmit={this.onSubmit}
           {...this.state}
         />
+         <Footer />
       </div>
     );
   }

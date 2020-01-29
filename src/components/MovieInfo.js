@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import Movie from "./movie.png";
 import { Redirect, Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import Footer from "./Footer";
 
 // this page is rendered by clicking  info icon in the movie table
 
@@ -108,10 +109,12 @@ class MovieInfo extends Component {
             <p className="descriptionContent">{this.state.movie.description}</p>
           </div>
         </div>
+        <Footer />
       </div>
     ) : (
       <div className="center">
         <p>Movie not found</p>
+        <Footer />
       </div>
     );
     }

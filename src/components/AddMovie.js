@@ -3,6 +3,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Redirect } from "react-router-dom";
 import Form from "./Form";
+import Footer from "./Footer";
 
 class AddMovie extends Component {
   constructor(props) {
@@ -68,6 +69,7 @@ class AddMovie extends Component {
           onSubmit={this.onSubmit}
           {...this.state}
         />
+        <Footer />
       </div>
     );
   }

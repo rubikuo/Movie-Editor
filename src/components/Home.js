@@ -1,39 +1,48 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import Movie from "./movie.png";
-import { FaEdit, FaTrashAlt, FaInfo, FaSearch } from "react-icons/fa";
+import Table from "./Table";
+import Footer from "./Footer";
+import throttle from "lodash.throttle";
+import { FaSearch } from "react-icons/fa";
 
 // create a table for showing all the movies
 
-class MovieTable extends Component {
+class MovieTable extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { movieDatas: [], search: "", error: false, dataLoaded:false};
+    this.state = {
+      movieDatas: [],
+      search: "",
+      error: false,
+      dataLoaded: false,
+      starsTotal: 5,
+    };
     this.url = "http://3.120.96.16:3001/movies";
-    this.starsTotal = 5;
+
     this.source = undefined;
     this.onChangeSearch = this.onChangeSearch.bind(this);
+    this.fetchData = throttle(this.fetchData.bind(this), 4000);
   }
 
   componentDidMount() {
     this.fetchData();
   }
 
-  fetchData = () => {
+  fetchData() {
     let CancelToken = axios.CancelToken;
     this.source = CancelToken.source();
     axios
       .get(this.url, { cancelToken: this.source.token })
       .then(response => {
         let datas = response.data;
-        this.setState({ movieDatas: datas, dataLoaded:true});
+        this.setState({ movieDatas: datas, dataLoaded: true });
       })
       .catch(error => {
         this.setState({ error: true });
       });
-  };
+  }
 
   // to store search input value in state
   onChangeSearch(e) {
@@ -52,8 +61,8 @@ class MovieTable extends Component {
   };
 
   render() {
+    console.log("render");
     const { movieDatas } = this.state;
-    const { search } = this.state;
     let renderContent;
 
     // to check if the request is bad then there is an error
@@ -71,105 +80,17 @@ class MovieTable extends Component {
       );
     }
 
-    if(this.state.dataLoaded){
-    // to check if there is any movie in the movieDatas array
-    // if yes render table content, if not render no post yet
-    renderContent = movieDatas.length ? (
-      <table cellSpacing={0}>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Director</th>
-            <th>Rating</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {movieDatas.map(movie => {
-            const infoUrl = "/movie-info/" + movie.id;
-            const editUrl = "/edit-movies/" + movie.id;
-
-            const content = (
-              <tr key={movie.id}>
-                <td>
-                  <img src={Movie} alt="movieImg" className="movieImg" />
-                </td>
-                <td>{movie.title}</td>
-                <td>{movie.director}</td>
-                <td>
-                  <div className="stars-outer">
-                    <div
-                      className="stars-inner"
-                      style={{
-                        width: `${Math.round(
-                          ((movie.rating / this.starsTotal) * 100) / 10
-                        ) * 10}%`
-                      }}
-                    ></div>
-                  </div>
-                </td>
-                <td>
-                  <Link to={infoUrl}>
-                    <div className="tooltip">
-                      <span className="tooltiptext">Info</span>
-                      <FaInfo
-                        size={22}
-                        color="lightblue"
-                        style={{ margin: "5px" }}
-                      />
-                    </div>
-                  </Link>
-
-                  <Link to={editUrl}>
-                    <div className="tooltip">
-                      <span className="tooltiptext">Edit</span>
-                      <FaEdit
-                        className="editIcon"
-                        size={22}
-                        color="lightblue"
-                        style={{ margin: "5px" }}
-                      />
-                    </div>
-                  </Link>
-
-                  <button
-                    className="deleteBtn"
-                    onClick={() => this.deleteMovie(movie.id)}
-                  >
-                    <div className="tooltip">
-                      <span className="tooltiptext">Delete</span>
-                      <FaTrashAlt
-                        size={22}
-                        color="lightblue"
-                        style={{ margin: "5px" }}
-                      />
-                    </div>
-                  </button>
-                </td>
-              </tr>
-            );
-
-            if (search === "") {
-              return content;
-            } else if (
-              movie.title.toLowerCase().includes(search.toLowerCase()) ||
-              movie.director.toLowerCase().includes(search.toLowerCase())
-            ) {
-              return content;
-            } else {
-              return null;
-            }
-          })}
-        </tbody>
-      </table>
-    ) : (
-      <div className="center">
-        <p>No post yet</p>
-      </div>
-    );
-
-  }
+    if (this.state.dataLoaded) {
+      // to check if there is any movie in the movieDatas array
+      // if yes render table content, if not render no post yet
+      renderContent = movieDatas.length ? (
+        <Table {...this.state} deleteMovie={this.deleteMovie} />
+      ) : (
+        <div className="center">
+          <p>No post yet</p>
+        </div>
+      );
+    }
 
     return (
       <div className="container">
@@ -194,6 +115,7 @@ class MovieTable extends Component {
           />
         </div>
         {renderContent}
+        <Footer />
       </div>
     );
   }
