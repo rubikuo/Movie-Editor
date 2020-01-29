@@ -37,7 +37,7 @@ class MovieTable extends PureComponent {
       .get(this.url, { cancelToken: this.source.token })
       .then(response => {
         let datas = response.data;
-        this.setState({ movieDatas: datas, dataLoaded: true });
+        this.setState({ movieDatas:datas, dataLoaded: true });
       })
       .catch(error => {
         this.setState({ error: true });
@@ -61,7 +61,6 @@ class MovieTable extends PureComponent {
   };
 
   render() {
-    console.log("render");
     const { movieDatas } = this.state;
     let renderContent;
 

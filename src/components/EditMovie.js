@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import Form from "./Form";
 import Footer from "./Footer";
 
 // using axios put
-class EditMovie extends Component {
+class EditMovie extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +30,6 @@ class EditMovie extends Component {
     axios
       .get(this.infoUrl, { cancelToken: this.source.token })
       .then(response => {
-        console.log(response.data);
         this.setState({
           title: response.data.title,
           director: response.data.director,
