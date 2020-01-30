@@ -67,7 +67,7 @@ class EditMovie extends PureComponent {
     axios
       .put(this.infoUrl, movie)
       .then(() => {
-        this.props.history.goBack(); 
+        this.props.history.goBack();
       })
       .catch(error => {
         this.setState({ error: true });
@@ -89,7 +89,7 @@ class EditMovie extends PureComponent {
           onSubmit={this.onSubmit}
           {...this.state}
         />
-         <Footer />
+        <Footer />
       </div>
     );
   }

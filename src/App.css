@@ -44,13 +44,13 @@ nav {
   align-items: center;
 }
 
-nav h1{
+nav h1 {
   color: rgb(247, 247, 247);
   text-shadow: 2px 2px 2px rgb(29, 29, 29);
   font-size: 1.5rem;
 }
 
-.wrapLinksDiv{
+.wrapLinksDiv {
   display: flex;
   text-align: right;
 }
@@ -63,8 +63,6 @@ nav h1{
   margin: 5px 10px;
   cursor: pointer;
 }
-
-
 
 /*form for Add Movie & Edit Movie */
 
@@ -148,7 +146,7 @@ span.warning {
 
 /* in Add movie & Edit movie components */
 .warningMsg {
-  color:rgb(238, 47, 34);
+  color: rgb(238, 47, 34);
   margin-top: 10px;
   text-shadow: 1px 1px 2px rgb(17, 16, 16);
 }
@@ -173,7 +171,6 @@ button.deleteBtn {
   cursor: pointer;
 }
 
-/*Edit component*/
 
 /*  Home Component  --- Movie */
 
@@ -293,7 +290,6 @@ table tbody tr td:nth-child(5) {
 }
 
 /* Movie Info Component */
-
 .center {
   width: 50%;
   height: 300px;
@@ -321,16 +317,14 @@ table tbody tr td:nth-child(5) {
   color: rgb(87, 179, 191);
 }
 
-.goBackLink{
+.goBackLink {
   text-decoration: none;
   margin-top: 10px;
 }
 
-.goBackLink:active{
+.goBackLink:active {
   color: rgb(213, 213, 213);
 }
-
-
 
 div.eachMovieInfo {
   width: 70%;
@@ -365,7 +359,6 @@ div.eachMovieInfo {
 
 .descriptionDiv {
   padding: 10px;
-
 }
 
 p.descriptionContent {
@@ -377,7 +370,7 @@ p.descriptionContent {
   text-shadow: 1px 1px 2px rgb(36, 36, 36);
 }
 
-.footer{
+.footer {
   color: rgb(156, 156, 156);
   margin: 20px auto 5px auto;
 }

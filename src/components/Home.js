@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Table from "./Table";
 import Footer from "./Footer";
-import throttle from "lodash.throttle";
 import { FaSearch } from "react-icons/fa";
 
 // create a table for showing all the movies
@@ -17,13 +16,11 @@ class MovieTable extends PureComponent {
       search: "",
       error: false,
       dataLoaded: false,
-      starsTotal: 5,
+      starsTotal: 5
     };
     this.url = "http://3.120.96.16:3001/movies";
-
     this.source = undefined;
     this.onChangeSearch = this.onChangeSearch.bind(this);
-    this.fetchData = throttle(this.fetchData.bind(this), 4000);
   }
 
   componentDidMount() {
@@ -37,7 +34,7 @@ class MovieTable extends PureComponent {
       .get(this.url, { cancelToken: this.source.token })
       .then(response => {
         let datas = response.data;
-        this.setState({ movieDatas:datas, dataLoaded: true });
+        this.setState({ movieDatas: datas, dataLoaded: true });
       })
       .catch(error => {
         this.setState({ error: true });

@@ -72,9 +72,7 @@ export default class Form extends Component {
       warningMsg = null;
     } else if (this.props.error) {
       warningMsg = (
-        <p className="warningMsg">
-          Invalid input please check and try again!
-        </p>
+        <p className="warningMsg">Invalid input please check and try again!</p>
       );
     } else {
       warningMsg = null;
